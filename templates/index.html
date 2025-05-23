@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure Encrypted Storage Team-11</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark-mode {
+            background-color: #1e1e1e;
+            color: white;
+        }
+        .navbar {
+            background-color: #0078D4;
+            padding: 15px;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .nav-links {
+            text-align: center;
+            margin: 10px 0;
+        }
+        .nav-links a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #0078D4;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark-mode .card {
+            background: #2e2e2e;
+            color: white;
+        }
+        .upload-section {
+            text-align: center;
+            padding: 20px;
+        }
+        .upload-section input {
+            margin: 10px;
+        }
+        .file-list {
+            padding: 0;
+            list-style: none;
+        }
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .download-link {
+            text-decoration: none;
+            color: #0078D4;
+            font-weight: bold;
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        .delete-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .toggle-mode {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            padding: 8px 15px;
+            background: #0078D4;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .about-contact-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .about-contact-container .card {
+            width: 48%;
+        }
+    </style>
+</head>
+<body>
+    <button class="toggle-mode" onclick="toggleDarkMode()">Toggle Mode</button>
+    <div class="navbar">Azure Encrypted Storage Team-11</div>
+    <div class="nav-links">
+        <a href="#upload">Upload</a>
+        <a href="#files">Available Files</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact Us</a>
+    </div>
+    <div class="container">
+        <div id="upload" class="card upload-section">
+            <h2>🔼 Upload File</h2>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file">
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+        <div id="files" class="card">
+            <h2>📂 Available Files</h2>
+            <ul class="file-list">
+                {% for file in files %}
+                <li class="file-item">
+                    <span>{{ file }}</span>
+                    <a class="download-link" href="{{ url_for('download', filename=file) }}">🔽 Download</a>
+                    <form action="{{ url_for('delete_file', filename=file) }}" method="post" style="display:inline;">
+                        <button class="delete-btn" type="submit">❌ Delete</button>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="about-contact-container">
+            <div id="about" class="card">
+                <h2>🔒 Securing Files with Azure Blob Storage</h2>
+                <p>This project focuses on securely storing files using Azure Blob Storage.<br><br> We implement both server-side and client-side encryption to ensure data security and integrity.</p>
+                <b>Team - 11 Cloud Based Security Specialist</b><br>
+                <b>2200031568 – Aditya [ Team Lead ]</b><br>
+                2200030830 – Eshwar<br>
+                2200030948 - Pavan
+            </div>
+            <div id="contact" class="card">
+                <h2>📞 Contact Us</h2>
+                <p>For inquiries, reach out to our team at <strong>support@cbssproject-team11.com</strong></p>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        &copy; CBSSPROject-Team-11
+    </div>
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+    </script>
+</body>
+</html>
